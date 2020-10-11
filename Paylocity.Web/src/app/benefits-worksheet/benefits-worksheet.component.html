@@ -1,0 +1,24 @@
+<div class="container-fluid">
+
+    <div class="jumbotron">
+        <img src="../../assets/paylocity-logo.png">
+        <h1 class="benefits-worksheet-title">Benefits Worksheet</h1>
+    </div>
+
+    <div id="benefitsForm" *ngIf="!showItemizedFees">
+        <benefits-form (formSubmitted)="formSubmittedHandler($event)"></benefits-form>
+    </div>
+
+    <div id="itemizedFees" *ngIf="showItemizedFees">
+
+        <itemized-fees [feeInfo]="feeInfo"></itemized-fees>
+
+        <div class="row mt-5 mb-5">
+            <div class="col">
+                <button id="resetWorksheetButton" type="button" class="btn btn-primary" (click)="resetWorksheet()">Reset Worksheet</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>

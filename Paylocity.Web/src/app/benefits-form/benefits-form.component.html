@@ -1,0 +1,59 @@
+<p class="lead">All fields are required unless otherwise indicated.</p>
+
+<form [formGroup]="benefitsForm" (ngSubmit)="calculateFees()">
+
+    <fieldset formGroupName="employee">
+        <legend>Employee</legend>
+
+        <div class="row">
+            <div class="col-3">
+                <label for="employeeFirstName">
+                    First Name
+                </label>
+            </div>
+            <div class="col-3">
+                <input id="employeeFirstName" type="text" formControlName="firstName">
+            </div>
+            <div class="col-3">
+                <label for="employeeLastName">
+                    Last Name
+                </label>
+            </div>
+            <div class="col-3">
+                <input id="employeeLastName" type="text" formControlName="lastName">
+            </div>
+        </div>
+
+    </fieldset>
+
+    <fieldset>
+
+        <legend>Dependents ({{totalDependents}})</legend>
+
+        <div formArrayName="dependents" *ngFor="let dependent of dependents.controls; let i = index;">
+            <p class="dependent-inputs-header">Dependent {{i + 1}}</p>
+            <div [formGroupName]="i" class="row">
+                <label class="col"> First Name <input formControlName="firstName" placeholder="First Name"></label>
+                <label class="col"> Last Name <input formControlName="lastName" placeholder="Last Name"></label>
+                <button type="button" class="col-2 btn btn-danger btn-sm" (click)="removeDependent(i)">Remove
+                    Dependent</button>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                <button type="button" class="btn btn-outline-primary" (click)="addDependent()">Add Dependent</button>
+            </div>
+        </div>
+
+    </fieldset>
+
+    <div class="row mt-5 mb-5">
+        <div class="col">
+            <button id="calculateButton" class="btn btn-primary" type="submit"
+                [disabled]="!benefitsForm.valid">Calculate Employer
+                Fees</button>
+        </div>
+    </div>
+
+</form>

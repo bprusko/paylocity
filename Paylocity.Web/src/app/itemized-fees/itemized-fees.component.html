@@ -1,0 +1,86 @@
+<div>
+
+    <div *ngIf="feeInfo?.employee" class="row mb-5">
+        <div class="col">
+            <h2>Breakdown of Benefit Fees for {{feeInfo.employee.firstName}} {{feeInfo.employee.lastName}}</h2>
+        </div>
+    </div>
+
+    <section *ngIf="feeInfo?.employee" class="row" id="employeeFees">
+        <div class="col">
+            <h3>Employee</h3>
+            <table class="table table-striped" summary="Table showing breakdown of fees for the employee" id="employeeFeesTable">
+                <thead>
+                    <th>Gross Deduction</th>
+                    <th>Total Discounts</th>
+                    <th>Net Deduction</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{feeInfo.employee.feeTotals.gross | currency}}</td>
+                        <td>{{feeInfo.employee.feeTotals.discount | currency}}</td>
+                        <td>{{feeInfo.employee.feeTotals.gross | currency}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section *ngIf="feeInfo?.dependents" class="row" id="dependentFees">
+        <div class="col">
+            <h3>Dependents</h3>
+
+            <div *ngIf="feeInfo.dependents.length > 0">
+
+                <table class="table table-striped" summary="Table showing breakdown of fees for each dependent" id="dependentFeesTable">
+                    <thead>
+                        <th>Name</th>
+                        <th>Gross Deduction</th>
+                        <th>Total Discounts</th>
+                        <th>Net Deduction</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let dependent of feeInfo.dependents">
+                            <td>{{dependent.firstName}} {{dependent.lastName}}</td>
+                            <td>{{dependent.feeTotals.gross | currency}}</td>
+                            <td>{{dependent.feeTotals.discount | currency}}</td>
+                            <td>{{dependent.feeTotals.net | currency}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div *ngIf="feeInfo.dependents.length == 0" id="noDependentsMessage">
+
+                <p>Not Applicable</p>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section *ngIf="feeInfo?.feeTotals" class="row" id="feeTotals">
+        <div class="col">
+            <h3>Totals</h3>
+
+            <table class="table table-striped" summary="Table showing total gross fees, total discounts, and total net fees" id="totalFeesTable">
+                <thead>
+                    <th>Gross Deductions</th>
+                    <th>Total Discounts</th>
+                    <th>Net Deductions</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{feeInfo.feeTotals.gross | currency}}</td>
+                        <td>{{feeInfo.feeTotals.discount | currency}}</td>
+                        <td>{{feeInfo.feeTotals.net | currency}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </section>
+
+</div>

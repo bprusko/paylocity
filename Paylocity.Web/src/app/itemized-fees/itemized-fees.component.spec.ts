@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FeeInfo } from '../ViewModels/FeeInfo';
+import { Paycheck } from '../ViewModels/Paycheck';
 
 import { ItemizedFeesComponent } from './itemized-fees.component';
 
@@ -17,7 +17,7 @@ describe('ItemizedFeesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemizedFeesComponent);
     component = fixture.componentInstance;
-    component.feeInfo = new FeeInfo();
+    component.feeInfo = new Paycheck();
     fixture.detectChanges();
   });
 
@@ -27,20 +27,22 @@ describe('ItemizedFeesComponent', () => {
 
   it('displays page title', () => {
     component.feeInfo = {
+      biweeklyBase: 2000,
       employee: {
         firstName: "John",
         lastName: "Smith",
-        feeTotals: {
+        deductions: {
           discount: 0,
-          gross: 1000,
-          net: 1000
+          gross: 38.46,
+          net: 38.46
         }
       },
       dependents: [],
-      feeTotals: {
-        discount: 50,
-        gross: 2000,
-        net: 1950
+      netPay: 1961.54,
+      totalDeductions: {
+        discount: 0,
+        gross: 38.46,
+        net: 38.46
       }
     };
 
@@ -52,23 +54,24 @@ describe('ItemizedFeesComponent', () => {
 
   it('displays employee fees', () => {
     component.feeInfo = {
+      biweeklyBase: 2000,
       employee: {
         firstName: "John",
         lastName: "Smith",
-        feeTotals: {
+        deductions: {
           discount: 0,
-          gross: 1000,
-          net: 1000
+          gross: 38.46,
+          net: 38.46
         }
       },
       dependents: [],
-      feeTotals: {
-        discount: 50,
-        gross: 2000,
-        net: 1950
+      netPay: 1961.54,
+      totalDeductions: {
+        discount: 0,
+        gross: 38.46,
+        net: 38.46
       }
     };
-
     fixture.detectChanges();
 
     let employeeFeesTable = fixture.nativeElement.querySelector('#employeeFeesTable');
@@ -78,38 +81,41 @@ describe('ItemizedFeesComponent', () => {
   describe('When an employee has dependents', () => {
 
     it('displays a table with dependent fee info', () => {
+
       component.feeInfo = {
+        biweeklyBase: 2000,
         employee: {
           firstName: "John",
           lastName: "Smith",
-          feeTotals: {
+          deductions: {
             discount: 0,
-            gross: 1000,
-            net: 1000
+            gross: 38.46,
+            net: 38.46
           }
         },
         dependents: [
           {
             firstName: "Dependent1",
-            feeTotals: {
-              discount: 50,
-              gross: 500,
-              net: 450
+            deductions: {
+              discount: 1.92,
+              gross: 19.23,
+              net: 17.31
             }
           },
           {
             firstName: "Dependent2",
-            feeTotals: {
+            deductions: {
               discount: 0,
-              gross: 500,
-              net: 500
+              gross: 19.23,
+              net: 19.23
             }
           }
         ],
-        feeTotals: {
-          discount: 50,
-          gross: 2000,
-          net: 1950
+        netPay: 1925,
+        totalDeductions: {
+          discount: 1.92,
+          gross: 76.92,
+          net: 75
         }
       };
 
@@ -125,20 +131,22 @@ describe('ItemizedFeesComponent', () => {
 
     it('displays a table with dependent fee info', () => {
       component.feeInfo = {
+        biweeklyBase: 2000,
         employee: {
           firstName: "John",
           lastName: "Smith",
-          feeTotals: {
+          deductions: {
             discount: 0,
-            gross: 1000,
-            net: 1000
+            gross: 38.46,
+            net: 38.46
           }
         },
         dependents: [],
-        feeTotals: {
-          discount: 50,
-          gross: 2000,
-          net: 1950
+        netPay: 1961.54,
+        totalDeductions: {
+          discount: 0,
+          gross: 38.46,
+          net: 38.46
         }
       };
 
@@ -152,20 +160,22 @@ describe('ItemizedFeesComponent', () => {
 
   it('displays total fees', () => {
     component.feeInfo = {
+      biweeklyBase: 2000,
       employee: {
         firstName: "John",
         lastName: "Smith",
-        feeTotals: {
+        deductions: {
           discount: 0,
-          gross: 1000,
-          net: 1000
+          gross: 38.46,
+          net: 38.46
         }
       },
       dependents: [],
-      feeTotals: {
-        discount: 50,
-        gross: 2000,
-        net: 1950
+      netPay: 1961.54,
+      totalDeductions: {
+        discount: 0,
+        gross: 38.46,
+        net: 38.46
       }
     };
 

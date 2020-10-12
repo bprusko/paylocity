@@ -22,7 +22,7 @@ namespace Paylocity
         {
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddSingleton<ICalculationService, CalculationService>();
-            services.AddSingleton<IFeesService, FeesService>();
+            services.AddSingleton<IPaycheckService, PaycheckService>();
             services.AddRouting();
             services.AddCors();
         }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FeeInfo } from '../ViewModels/FeeInfo';
+import { Paycheck } from '../ViewModels/Paycheck';
 
 @Component({
   selector: 'benefits-worksheet',
@@ -9,7 +9,7 @@ import { FeeInfo } from '../ViewModels/FeeInfo';
 export class BenefitsWorksheetComponent implements OnInit {
 
   showItemizedFees:boolean;
-  feeInfo:FeeInfo;
+  feeInfo:Paycheck;
 
   constructor() { }
 
@@ -17,7 +17,7 @@ export class BenefitsWorksheetComponent implements OnInit {
     this.showItemizedFees = false;
   }
 
-  formSubmittedHandler(value: FeeInfo){
+  formSubmittedHandler(value: Paycheck){
     // TODO: Error handling for getting fee info
 
     // This represents successes case

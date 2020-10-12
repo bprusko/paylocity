@@ -1,7 +1,7 @@
-import { FeeTotals } from './FeeTotals';
+import { Deduction } from './Deduction';
 
 export class Employee{
     firstName:string;
-    feeTotals:FeeTotals;
+    deductions:Deduction;
     lastName:string;
 }

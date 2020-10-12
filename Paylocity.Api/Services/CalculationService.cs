@@ -6,7 +6,7 @@ namespace Paylocity.Api.Services
 
     public class CalculationService: ICalculationService {
 
-        public Fees CalculateFees (IBenefitsSubject benefitsSubject) {
+        public Deduction CalculateDeductions (IBenefitsSubject benefitsSubject) {
             var calculator = benefitsSubject.GetCalculator();
             return calculator.CalculateDeductions(benefitsSubject.FirstName);
         }

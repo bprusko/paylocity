@@ -4,7 +4,7 @@ using Dependent = Paylocity.Api.Models.Dependent;
 using Employee = Paylocity.Api.Models.Employee;
 using DependentVM = Paylocity.Api.ViewModels.Dependent;
 using EmployeeVM = Paylocity.Api.ViewModels.Employee;
-using FeeTotalVM = Paylocity.Api.ViewModels.FeeTotal;
+using DeductionVM = Paylocity.Api.ViewModels.Deduction;
 using Paylocity.Api.ViewModels;
 
 namespace Paylocity.Api.Tests
@@ -29,33 +29,27 @@ namespace Paylocity.Api.Tests
             LastName = "Jannetty"
         };
 
-        public static readonly FeeInfo FeeInfo = new FeeInfo
+        public static readonly Paycheck Paycheck = new Paycheck
         {
             Employee = new EmployeeVM
             {
                 FirstName = "Meryl",
                 LastName = "Hunter",
-                FeeTotals = new FeeTotalVM {
+                Deductions = new DeductionVM
+                {
                     Discount = 0,
-                    Gross = 38.46,
-                    Net = 38.46
+                    Gross = 38.46
                 }
             },
             Dependents = new List<DependentVM> {
                 new DependentVM {
                 FirstName = "Dorothy",
                 LastName = "Hunter",
-                FeeTotals = new FeeTotalVM {
+                Deductions = new DeductionVM {
                     Discount = 0,
-                    Gross = 19.23,
-                    Net = 19.23
+                    Gross = 19.23
                     }
                 }
-            },
-            FeeTotals = new FeeTotalVM {
-                Discount = 0,
-                Gross = 47.69,
-                Net = 47.69
             }
         };
 
@@ -65,7 +59,7 @@ namespace Paylocity.Api.Tests
             LastName = "Levinson"
         };
 
-        public static readonly FeesRequest FeesRequestWithDependents = new FeesRequest
+        public static readonly PaycheckRequest PaycheckRequestWithDependents = new PaycheckRequest
         {
             Employee = new Employee
             {
@@ -84,7 +78,7 @@ namespace Paylocity.Api.Tests
             }
         };
 
-        public static readonly FeesRequest FeesRequestWithoutDependents = new FeesRequest
+        public static readonly PaycheckRequest PaycheckRequest = new PaycheckRequest
         {
             Employee = new Employee
             {
@@ -93,32 +87,28 @@ namespace Paylocity.Api.Tests
             }
         };
 
-        public static readonly Fees EmployeeFeesWithDiscount = new Fees
+        public static readonly Models.Deduction EmployeeFeesWithDiscount = new Models.Deduction
         {
             Discount = 3.85,
-            Gross = 38.46,
-            Net = 34.61
+            Gross = 38.46
         };
 
-        public static readonly Fees EmployeeFees = new Fees
+        public static readonly Models.Deduction EmployeeDeductions = new Models.Deduction
         {
             Discount = 0,
-            Gross = 38.46,
-            Net = 38.46
+            Gross = 38.46
         };
 
-        public static readonly Fees DependentFeesWithDiscount = new Fees
+        public static readonly Models.Deduction DependentDeductionsWithDiscount = new Models.Deduction
         {
             Discount = 1.92,
-            Gross = 19.23,
-            Net = 17.31
+            Gross = 19.23
         };
 
-        public static readonly Fees DependentFees = new Fees
+        public static readonly Models.Deduction DependentDeductions = new Models.Deduction
         {
             Discount = 0,
-            Gross = 19.23,
-            Net = 19.23
+            Gross = 19.23
         };
 
     }

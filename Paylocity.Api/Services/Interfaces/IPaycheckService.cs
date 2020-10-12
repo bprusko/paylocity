@@ -3,9 +3,9 @@ using Paylocity.Api.ViewModels;
 
 namespace Paylocity.Api.Services.Interfaces {
 
-    public interface IFeesService {
+    public interface IPaycheckService {
 
-        FeeInfo GetFees(FeesRequest request);
+        Paycheck GetPaycheck(PaycheckRequest request);
 
     }
 

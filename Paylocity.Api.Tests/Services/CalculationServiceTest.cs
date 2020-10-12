@@ -16,23 +16,23 @@ namespace Paylocity.Api.Tests
         }
 
         [TestMethod]
-        public void CalculateFees_CalculatesEmployeeFees()
+        public void CalculateDeductions_CalculatesEmployeeFees()
         {
             var employee = new Employee{ FirstName = "Dwayne", LastName = "Johnson"};
-            var fees = _calculationService.CalculateFees(employee);
-            Assert.AreEqual(0, fees.Discount);
-            Assert.AreEqual(38.46, fees.Gross);
-            Assert.AreEqual(38.46, fees.Net);
+            var deductions = _calculationService.CalculateDeductions(employee);
+            Assert.AreEqual(0, deductions.Discount);
+            Assert.AreEqual(38.46, deductions.Gross);
+            Assert.AreEqual(38.46, deductions.Net);
         }
 
         [TestMethod]
-        public void CalculateFees_CalculatesDependentFees()
+        public void CalculateDeductions_CalculatesDependentFees()
         {
             var depdendent = new Dependent{ FirstName = "Mick", LastName = "Foley"};
-            var fees = _calculationService.CalculateFees(depdendent);
-            Assert.AreEqual(0, fees.Discount);
-            Assert.AreEqual(19.23, fees.Gross);
-            Assert.AreEqual(19.23, fees.Net);
+            var deductions = _calculationService.CalculateDeductions(depdendent);
+            Assert.AreEqual(0, deductions.Discount);
+            Assert.AreEqual(19.23, deductions.Gross);
+            Assert.AreEqual(19.23, deductions.Net);
         }
     }
 }

@@ -10,62 +10,56 @@ using Paylocity.Api.Services.Interfaces;
 namespace Paylocity.Api.Controllers
 {
     [ApiController]
-    [Route("api/v1/benefits/")]
-    public class BenefitsController : ControllerBase
+    [Route("api/v1/paycheck/")]
+    public class PaycheckController : ControllerBase
     {
-        private readonly IFeesService _feesService;
+        private readonly IPaycheckService _paycheckService;
 
-        private readonly ILogger<BenefitsController> _logger;
+        private readonly ILogger<PaycheckController> _logger;
 
-        public BenefitsController(ILogger<BenefitsController> logger, IFeesService feesService)
+        public PaycheckController(ILogger<PaycheckController> logger, IPaycheckService paycheckService)
         {
             _logger = logger;
-            _feesService = feesService;
+            _paycheckService = paycheckService;
         }
 
         [HttpPost]
-        [Route("fees")]
-        public FeeInfo CalculateFees([FromBody] FeesRequest feeRequest)
+        [Route("deductions")]
+        public Paycheck GetDeductions([FromBody] PaycheckRequest feeRequest)
         {
-            return _feesService.GetFees(feeRequest);
+            return _paycheckService.GetPaycheck(feeRequest);
         }
 
         [HttpGet]
         [Route("fees")]
-        public FeeInfo GetFeesOld()
+        public Paycheck GetFeesOld()
         {
-            return new FeeInfo {
+            return new Paycheck
+            {
                 Dependents = new List<Dependent> {
                     new Dependent {
                         FirstName = "Dependent11",
-                        FeeTotals = new FeeTotal{
+                        Deductions = new ViewModels.Deduction{
                             Discount = 50,
-                            Gross = 500,
-                            Net = 450
+                            Gross = 500
                         },
                     },
                     new Dependent {
                         FirstName = "Dependent22",
-                        FeeTotals = new FeeTotal{
+                        Deductions = new ViewModels.Deduction{
                             Discount = 0,
-                            Gross = 500,
-                            Net = 500
+                            Gross = 500
                         },
                     }
                 },
-                Employee = new Employee {
+                Employee = new Employee
+                {
                     FirstName = "Piers",
                     LastName = "Morgan",
-                    FeeTotals = new FeeTotal {
+                    Deductions = new ViewModels.Deduction {
                         Discount = 0,
-                        Gross = 1000,
-                        Net = 1000
+                        Gross = 1000
                     }
-                },
-                FeeTotals = new FeeTotal {
-                    Discount = 50,
-                    Gross = 2000,
-                    Net = 1950
                 }
             };
         }

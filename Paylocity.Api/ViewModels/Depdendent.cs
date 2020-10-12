@@ -4,8 +4,8 @@ namespace Paylocity.Api.ViewModels {
 
     public class Dependent {
 
-        [JsonProperty("feeTotals")]
-        public FeeTotal FeeTotals { get; set; }
+        [JsonProperty("deductions")]
+        public Deduction Deductions { get; set; }
 
         [JsonProperty("firstName")]
         public string FirstName { get; set; }

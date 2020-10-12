@@ -17,34 +17,34 @@ namespace Paylocity.Api.Tests
         [TestMethod]
         public void SetsTheBaseAnnualFeeTo_1000()
         {
-            Assert.AreEqual(1000, _employeeCalculator.BaseAnnualFee);
+            Assert.AreEqual(1000, _employeeCalculator.BaseAnnualDeduction);
         }
 
         [TestMethod]
         public void AppliesDiscount_WhenEmployeeNameStartsWithUppercaseA()
         {
-            var fees = _employeeCalculator.CalculateDeductions("Alex");
-            Assert.AreEqual(3.85, fees.Discount);
-            Assert.AreEqual(38.46, fees.Gross);
-            Assert.AreEqual(34.61, fees.Net);
+            var deductions = _employeeCalculator.CalculateDeductions("Alex");
+            Assert.AreEqual(3.85, deductions.Discount);
+            Assert.AreEqual(38.46, deductions.Gross);
+            Assert.AreEqual(34.61, deductions.Net);
         }
 
         [TestMethod]
         public void AppliesDiscount_WhenEmployeeNameStartsWithLowercaseA()
         {
-            var fees = _employeeCalculator.CalculateDeductions("alex");
-            Assert.AreEqual(3.85, fees.Discount);
-            Assert.AreEqual(38.46, fees.Gross);
-            Assert.AreEqual(34.61, fees.Net);
+            var deductions = _employeeCalculator.CalculateDeductions("alex");
+            Assert.AreEqual(3.85, deductions.Discount);
+            Assert.AreEqual(38.46, deductions.Gross);
+            Assert.AreEqual(34.61, deductions.Net);
         }
 
         [TestMethod]
         public void DoesNotApplyDiscount_WhenEmployeeNameDoesNotStartsWithUppercaseOrLowerscaseA()
         {
-            var fees = _employeeCalculator.CalculateDeductions("Bre");
-            Assert.AreEqual(0, fees.Discount);
-            Assert.AreEqual(38.46, fees.Gross);
-            Assert.AreEqual(38.46, fees.Net);
+            var deductions = _employeeCalculator.CalculateDeductions("Bre");
+            Assert.AreEqual(0, deductions.Discount);
+            Assert.AreEqual(38.46, deductions.Gross);
+            Assert.AreEqual(38.46, deductions.Net);
         }
     }
 }

@@ -17,9 +17,9 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{feeInfo.employee.feeTotals.gross | currency}}</td>
-                        <td>{{feeInfo.employee.feeTotals.discount | currency}}</td>
-                        <td>{{feeInfo.employee.feeTotals.gross | currency}}</td>
+                        <td>{{feeInfo.employee.deductions.gross | currency}}</td>
+                        <td>{{feeInfo.employee.deductions.discount | currency}}</td>
+                        <td>{{feeInfo.employee.deductions.gross | currency}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -42,9 +42,9 @@
                     <tbody>
                         <tr *ngFor="let dependent of feeInfo.dependents">
                             <td>{{dependent.firstName}} {{dependent.lastName}}</td>
-                            <td>{{dependent.feeTotals.gross | currency}}</td>
-                            <td>{{dependent.feeTotals.discount | currency}}</td>
-                            <td>{{dependent.feeTotals.net | currency}}</td>
+                            <td>{{dependent.deductions.gross | currency}}</td>
+                            <td>{{dependent.deductions.discount | currency}}</td>
+                            <td>{{dependent.deductions.net | currency}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -60,7 +60,7 @@
         </div>
     </section>
 
-    <section *ngIf="feeInfo?.feeTotals" class="row" id="feeTotals">
+    <section *ngIf="feeInfo?.totalDeductions" class="row" id="feeTotals">
         <div class="col">
             <h3>Totals</h3>
 
@@ -72,9 +72,9 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{feeInfo.feeTotals.gross | currency}}</td>
-                        <td>{{feeInfo.feeTotals.discount | currency}}</td>
-                        <td>{{feeInfo.feeTotals.net | currency}}</td>
+                        <td>{{feeInfo.totalDeductions.gross | currency}}</td>
+                        <td>{{feeInfo.totalDeductions.discount | currency}}</td>
+                        <td>{{feeInfo.totalDeductions.net | currency}}</td>
                     </tr>
                 </tbody>
             </table>

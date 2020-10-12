@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FeeInfo } from '../ViewModels/FeeInfo';
+import { Paycheck } from '../ViewModels/Paycheck';
 import { PaycheckService } from '../services/paycheck.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class BenefitsFormComponent implements OnInit {
   totalDependents: number;
 
   @Output()
-  formSubmitted: EventEmitter<FeeInfo> = new EventEmitter<FeeInfo>();
+  formSubmitted: EventEmitter<Paycheck> = new EventEmitter<Paycheck>();
 
   constructor(private formBuilder: FormBuilder,
     private paycheckService: PaycheckService) { }
@@ -52,7 +52,7 @@ export class BenefitsFormComponent implements OnInit {
 
   calculateFees() {
     this.paycheckService.getPaycheck(this.benefitsForm.value).subscribe(response => {
-      this.formSubmitted.emit(response as FeeInfo);
+      this.formSubmitted.emit(response as Paycheck);
     });
   }
 

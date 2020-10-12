@@ -3,21 +3,21 @@ import { By } from '@angular/platform-browser';
 import { Component, EventEmitter, Input, Output} from '@angular/core';
 
 import { BenefitsWorksheetComponent } from './benefits-worksheet.component';
-import { FeeInfo } from '../ViewModels/FeeInfo';
+import { Paycheck } from '../ViewModels/Paycheck';
 
 describe('BenefitsWorksheetComponent', () => {
   let component: BenefitsWorksheetComponent;
   let fixture: ComponentFixture<BenefitsWorksheetComponent>;
-  let eventValue: FeeInfo;
+  let eventValue: Paycheck;
 
   @Component({ selector: 'benefits-form'})
   class MockBenefitsFormComponent {
-    @Output() formSubmitted: EventEmitter<FeeInfo> = new EventEmitter<FeeInfo>();
+    @Output() formSubmitted: EventEmitter<Paycheck> = new EventEmitter<Paycheck>();
   }
 
   @Component({ selector: 'itemized-fees'})
   class MockItemizedFeesComponent {
-    @Input() feeInfo: FeeInfo;
+    @Input() feeInfo: Paycheck;
   }
 
   beforeEach(async () => {

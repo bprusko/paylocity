@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Dependent } from '../ViewModels/Dependent';
 import { Employee } from '../ViewModels/Employee';
-import { FeeInfo } from '../ViewModels/FeeInfo';
-import { FeeTotals } from '../ViewModels/FeeTotals';
+import { Paycheck } from '../ViewModels/Paycheck';
+import { Deduction } from '../ViewModels/Deduction';
 
 @Component({
   selector: 'itemized-fees',
@@ -12,7 +12,7 @@ import { FeeTotals } from '../ViewModels/FeeTotals';
 export class ItemizedFeesComponent implements OnInit {
 
   @Input()
-  feeInfo: FeeInfo;
+  feeInfo: Paycheck;
 
   constructor() { }
 

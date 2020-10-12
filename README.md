@@ -1,4 +1,4 @@
-# Paylocity Coding Exercise (Work In Progress)
+# Paylocity Coding Exercise
 
 This is a small web app that calculates an employer's cost for an employee's annual benefits. Calculations are based on fictitious rules, and per the exercise instructions, the implementation is designed to be functional rather than production ready.
 

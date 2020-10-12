@@ -49,7 +49,7 @@ describe('ItemizedFeesComponent', () => {
     fixture.detectChanges();
 
     let pageTitle = fixture.nativeElement.querySelector('h2');
-    expect(pageTitle.textContent).toEqual('Breakdown of Benefit Fees for John Smith');
+    expect(pageTitle.textContent).toEqual('Breakdown of Benefit Deductions for John Smith');
   });
 
   it('displays employee fees', () => {

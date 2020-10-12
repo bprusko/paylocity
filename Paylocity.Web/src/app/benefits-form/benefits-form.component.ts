@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Paycheck } from '../ViewModels/Paycheck';
 import { PaycheckService } from '../services/paycheck.service';
@@ -14,33 +14,52 @@ export class BenefitsFormComponent implements OnInit {
   totalDependents: number;
 
   @Output()
-  formSubmitted: EventEmitter<Paycheck> = new EventEmitter<Paycheck>();
+  formSubmitted: EventEmitter<[Paycheck, any]> = new EventEmitter<[Paycheck, any]>();
+
+  @Input()
+  submittedForm: any;
 
   constructor(private formBuilder: FormBuilder,
     private paycheckService: PaycheckService) { }
 
   ngOnInit(): void {
 
-    this.benefitsForm = this.formBuilder.group({
+    if(this.submittedForm != null) {
+
+      this.benefitsForm = this.submittedForm;
+      this.totalDependents = this.dependents.length;
+
+    } else {
+
+      this.benefitsForm = this.buildBenefitsForm();
+      this.totalDependents = 0;
+
+    }
+
+  }
+
+  buildBenefitsForm(): any {
+    return this.formBuilder.group({
       employee: this.formBuilder.group({
-        firstName: [''],
-        lastName: [''],
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
       }),
       dependents: this.formBuilder.array([])
     });
-
-    this.totalDependents = 0;
-
   }
 
   get dependents() {
     return this.benefitsForm.get('dependents') as FormArray;
   }
 
+  get employee() {
+    return this.benefitsForm.get('employee') as FormGroup;
+  }
+
   addDependent() {
     this.dependents.push(this.formBuilder.group({
       firstName: ['', Validators.required],
-      lastName: [''],
+      lastName: ['', Validators.required],
     }));
     this.totalDependents++;
   }
@@ -52,7 +71,7 @@ export class BenefitsFormComponent implements OnInit {
 
   calculateFees() {
     this.paycheckService.getPaycheck(this.benefitsForm.value).subscribe(response => {
-      this.formSubmitted.emit(response as Paycheck);
+      this.formSubmitted.emit([response as Paycheck, this.benefitsForm]);
     });
   }
 

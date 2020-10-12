@@ -119,12 +119,14 @@ describe('BenefitsFormComponent', () => {
   describe('Clicking the calculate button', () => {
 
     it('emits an event with paycheck data', fakeAsync(() => {
+      component.employee.patchValue({ firstName: 'First Name #1', lastName: 'Last Name #1' });
+      fixture.detectChanges();
       spyOn(component.formSubmitted, 'emit');
       const button = fixture.nativeElement.querySelector('#calculateButton');
       button.click();
       tick();
       fixture.detectChanges();
-      expect(component.formSubmitted.emit).toHaveBeenCalledWith(paycheck);
+      expect(component.formSubmitted.emit).toHaveBeenCalledWith([paycheck, component.benefitsForm]);
     }));
 
   });

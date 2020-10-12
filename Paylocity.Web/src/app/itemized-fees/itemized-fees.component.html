@@ -2,7 +2,7 @@
 
     <div *ngIf="feeInfo?.employee" class="row mb-5">
         <div class="col">
-            <h2>Breakdown of Benefit Fees for {{feeInfo.employee.firstName}} {{feeInfo.employee.lastName}}</h2>
+            <h2>Breakdown of Benefit Deductions for {{feeInfo.employee.firstName}} {{feeInfo.employee.lastName}}</h2>
         </div>
     </div>
 
@@ -66,15 +66,19 @@
 
             <table class="table table-striped" summary="Table showing total gross fees, total discounts, and total net fees" id="totalFeesTable">
                 <thead>
+                    <th>Base Pay</th>
                     <th>Gross Deductions</th>
                     <th>Total Discounts</th>
                     <th>Net Deductions</th>
+                    <th>Net Pay</th>
                 </thead>
                 <tbody>
                     <tr>
+                        <td>{{feeInfo.biweeklyBase | currency}}</td>
                         <td>{{feeInfo.totalDeductions.gross | currency}}</td>
                         <td>{{feeInfo.totalDeductions.discount | currency}}</td>
                         <td>{{feeInfo.totalDeductions.net | currency}}</td>
+                        <td>{{feeInfo.netPay | currency}}</td>
                     </tr>
                 </tbody>
             </table>

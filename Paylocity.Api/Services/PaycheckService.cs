@@ -83,22 +83,6 @@ namespace Paylocity.Api.Services
             return depdendentVM;
         }
 
-        /* private Deduction BuildDeductionTotals(EmployeeVM employee, List<DependentVM> dependents)
-        {
-            var dependentDiscounts = dependents.Select(d => d.Deductions.Discount).Sum();
-            var dependentGross = dependents.Select(d => d.Deductions.Gross).Sum();
-            var dependentNet = dependents.Select(d => d.Deductions.Net).Sum();
-
-            var deductionTotals = new Deduction
-            {
-                Discount = employee.Deductions.Discount + dependentDiscounts,
-                Gross = employee.Deductions.Gross + dependentGross,
-                Net = employee.Deductions.Net + dependentNet
-            };
-
-            return deductionTotals;
-        } */
-
     }
 
 }

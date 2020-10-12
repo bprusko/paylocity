@@ -4,7 +4,7 @@ using Paylocity.Api.Models;
 namespace Paylocity.Api.Calculators
 {
 
-    public abstract class FeeCalculator {
+    public abstract class DeductionCalculator {
 
         public abstract double BaseAnnualDeduction { get; }
 
@@ -12,16 +12,16 @@ namespace Paylocity.Api.Calculators
 
         public Deduction CalculateDeductions(string firstName) {
 
-            var fees = new Deduction {
+            var deduction = new Deduction {
                 Discount = 0,
                 Gross = BaseBiweeklyDeduction
             };
 
             if(IsEligibleForDiscount(firstName)){
-                fees.Discount = CalculateDiscount();
+                deduction.Discount = CalculateDiscount();
             }
 
-            return fees;
+            return deduction;
         }
 
         private double BaseBiweeklyDeduction => Math.Round(BaseAnnualDeduction/BiweeklyPayPeriods, 2);

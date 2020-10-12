@@ -1,6 +1,6 @@
 namespace Paylocity.Api.Calculators
 {
-    public class EmployeeCalculator : FeeCalculator {
+    public class EmployeeCalculator : DeductionCalculator {
 
         public override double BaseAnnualDeduction
         {

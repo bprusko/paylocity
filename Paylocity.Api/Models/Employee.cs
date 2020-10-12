@@ -11,7 +11,7 @@ namespace Paylocity.Api.Models {
         [JsonProperty("lastName")]
         public string LastName { get; set; }
 
-        public FeeCalculator GetCalculator () {
+        public DeductionCalculator GetCalculator () {
             return new EmployeeCalculator();
         }
 

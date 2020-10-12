@@ -8,11 +8,48 @@ import { Paycheck } from '../ViewModels/Paycheck';
 describe('BenefitsWorksheetComponent', () => {
   let component: BenefitsWorksheetComponent;
   let fixture: ComponentFixture<BenefitsWorksheetComponent>;
-  let eventValue: Paycheck;
+
+  const paycheck: Paycheck = {
+    biweeklyBase: 2000,
+    employee: {
+      firstName: "John",
+      lastName: "Smith",
+      deductions: {
+        discount: 0,
+        gross: 38.46,
+        net: 38.46
+      }
+    },
+    dependents: [
+      {
+        firstName: "Dependent1",
+        deductions: {
+          discount: 1.92,
+          gross: 19.23,
+          net: 17.31
+        }
+      },
+      {
+        firstName: "Dependent2",
+        deductions: {
+          discount: 0,
+          gross: 19.23,
+          net: 19.23
+        }
+      }
+    ],
+    netPay: 1925,
+    totalDeductions: {
+      discount: 1.92,
+      gross: 76.92,
+      net: 75
+    }
+  };
 
   @Component({ selector: 'benefits-form'})
   class MockBenefitsFormComponent {
-    @Output() formSubmitted: EventEmitter<Paycheck> = new EventEmitter<Paycheck>();
+    @Output() formSubmitted: EventEmitter<[Paycheck, any]> = new EventEmitter<[Paycheck, any]>();
+    @Input() submittedForm: any;
   }
 
   @Component({ selector: 'itemized-fees'})
@@ -39,7 +76,7 @@ describe('BenefitsWorksheetComponent', () => {
 
   it('displays page title', () => {
     let pageTitle = fixture.nativeElement.querySelector('h1');
-    expect(pageTitle.textContent).toEqual('Benefits Worksheet');
+    expect(pageTitle.textContent).toEqual('Benefit Deductions Worksheet');
   });
 
   it('initially displays the benefits form', () => {
@@ -47,37 +84,17 @@ describe('BenefitsWorksheetComponent', () => {
     expect(element).toBeTruthy();
   });
 
-  describe('When benefits form is submitted', () => {
-
-    beforeEach(() => {
-      const eventValue = {
-        employee: {
-          firstName: "John",
-          lastName: "Smith",
-          feeTotals: {
-            discount: 0,
-            gross: 1000,
-            net: 1000
-          }
-        },
-        dependents: [],
-        feeTotals: {
-          discount: 50,
-          gross: 2000,
-          net: 1950
-        }
-      };
-    });
+  describe('When the benefits form is submitted', () => {
 
     it('calls formSubmittedHandler', () => {
       spyOn(component, 'formSubmittedHandler');
       const element = fixture.debugElement.query(By.css('benefits-form'));
-      element.triggerEventHandler('formSubmitted', eventValue);
-      expect(component.formSubmittedHandler).toHaveBeenCalled();
+      element.triggerEventHandler('formSubmitted', [paycheck, 'benefits form']);
+      expect(component.formSubmittedHandler).toHaveBeenCalledWith([paycheck, 'benefits form']);
     });
 
     it('shows the itemized fees', () => {
-      component.formSubmittedHandler(eventValue);
+      component.formSubmittedHandler([paycheck, 'benefits form']);
       fixture.detectChanges();
       expect(component.showItemizedFees).toBeTrue();
       const element = fixture.nativeElement.querySelector('#itemizedFees');
@@ -85,15 +102,27 @@ describe('BenefitsWorksheetComponent', () => {
     });
 
     it('hides the benefits form', () => {
-      component.formSubmittedHandler(eventValue);
+      component.formSubmittedHandler([paycheck, 'benefits form']);
       fixture.detectChanges();
       const element = fixture.nativeElement.querySelector('#benefitsForm');
       expect(element).toBeNull();
     });
 
-    describe('Clicking the reset button', () => {
+    it('stores a copy of the benefits form', () => {
+      component.formSubmittedHandler([paycheck, 'benefits form']);
+      fixture.detectChanges();
+      expect(component.submittedForm).toEqual('benefits form');
+    });
+
+    it('updates the binding for benefits form', () => {
+      component.formSubmittedHandler([paycheck, 'benefits form']);
+      fixture.detectChanges();
+      expect(component.feeInfo).toEqual(paycheck);
+    });
+
+    describe('Clicking the reset worksheet button', () => {
       beforeEach(() => {
-        component.formSubmittedHandler(eventValue);
+        component.formSubmittedHandler([paycheck, 'benefits form']);
         fixture.detectChanges();
       });
 
@@ -133,6 +162,69 @@ describe('BenefitsWorksheetComponent', () => {
         expect(component.showItemizedFees).toBeTrue();
 
         let button = fixture.debugElement.nativeElement.querySelector('#resetWorksheetButton');
+        button.click();
+        tick();
+
+        fixture.detectChanges();
+
+        const element = fixture.nativeElement.querySelector('#itemizedFees');
+        expect(element).toBeNull();
+      }));
+
+      it('sets submittedForm to null', fakeAsync(() => {
+        let button = fixture.debugElement.nativeElement.querySelector('#resetWorksheetButton');
+        button.click();
+        tick();
+
+        fixture.detectChanges();
+
+        expect(component.submittedForm).toBeNull();
+      }));
+
+    });
+
+    describe('Clicking the edit worksheet button', () => {
+      beforeEach(() => {
+        component.formSubmittedHandler([paycheck, 'benefits form']);
+        fixture.detectChanges();
+      });
+
+      it('calls editWorksheet', fakeAsync(() => {
+        spyOn(component, 'editWorksheet');
+
+        let button = fixture.debugElement.nativeElement.querySelector('#editWorksheetButton');
+        button.click();
+        tick();
+        expect(component.editWorksheet).toHaveBeenCalled();
+      }));
+
+      it('sets showItemizedFees to false', fakeAsync(() => {
+        expect(component.showItemizedFees).toBeTrue();
+
+        let button = fixture.debugElement.nativeElement.querySelector('#editWorksheetButton');
+        button.click();
+        tick();
+
+        expect(component.showItemizedFees).toBeFalse();
+      }));
+
+      it('displays the benefits form again', fakeAsync(() => {
+        expect(component.showItemizedFees).toBeTrue();
+
+        let button = fixture.debugElement.nativeElement.querySelector('#resetWorksheetButton');
+        button.click();
+        tick();
+
+        fixture.detectChanges();
+
+        const element = fixture.nativeElement.querySelector('#benefitsForm');
+        expect(element).not.toBeNull();
+      }));
+
+      it('hides the itemized fees again', fakeAsync(() => {
+        expect(component.showItemizedFees).toBeTrue();
+
+        let button = fixture.debugElement.nativeElement.querySelector('#editWorksheetButton');
         button.click();
         tick();
 

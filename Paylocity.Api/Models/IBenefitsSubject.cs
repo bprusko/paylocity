@@ -7,7 +7,7 @@ namespace Paylocity.Api.Models {
         string FirstName { get; set; }
         string LastName { get; set; }
 
-        FeeCalculator GetCalculator();
+        DeductionCalculator GetCalculator();
 
     }
 

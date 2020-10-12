@@ -8,8 +8,9 @@ import { Paycheck } from '../ViewModels/Paycheck';
 })
 export class BenefitsWorksheetComponent implements OnInit {
 
-  showItemizedFees:boolean;
   feeInfo:Paycheck;
+  showItemizedFees:boolean;
+  submittedForm: any;
 
   constructor() { }
 
@@ -17,20 +18,26 @@ export class BenefitsWorksheetComponent implements OnInit {
     this.showItemizedFees = false;
   }
 
-  formSubmittedHandler(value: Paycheck){
+  formSubmittedHandler(value: [Paycheck, any]){
     // TODO: Error handling for getting fee info
-
-    // This represents successes case
+    // Success
     this.showItemizedFees = true;
-    this.feeInfo = value;
+    this.feeInfo = value[0];
+    this.submittedForm = value[1];
 
+    // Failure
     // If we don't get data back
-    // - show error message instead
+    // - show error message
     // - do not show itemized fees screen
+  }
+
+  editWorksheet(){
+    this.showItemizedFees = false;
   }
 
   resetWorksheet(){
     this.showItemizedFees = false;
+    this.submittedForm = null;
   }
 
 }

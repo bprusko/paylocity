@@ -1,23 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Paycheck } from '../ViewModels/Paycheck';
 
-import { ItemizedFeesComponent } from './itemized-fees.component';
+import { ItemizedDeductionsComponent } from './itemized-deductions.component';
 
-describe('ItemizedFeesComponent', () => {
-  let component: ItemizedFeesComponent;
-  let fixture: ComponentFixture<ItemizedFeesComponent>;
+describe('ItemizedDeductionsComponent', () => {
+  let component: ItemizedDeductionsComponent;
+  let fixture: ComponentFixture<ItemizedDeductionsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ItemizedFeesComponent ]
+      declarations: [ ItemizedDeductionsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ItemizedFeesComponent);
+    fixture = TestBed.createComponent(ItemizedDeductionsComponent);
     component = fixture.componentInstance;
-    component.feeInfo = new Paycheck();
+    component.paycheck = new Paycheck();
     fixture.detectChanges();
   });
 
@@ -26,7 +26,7 @@ describe('ItemizedFeesComponent', () => {
   });
 
   it('displays page title', () => {
-    component.feeInfo = {
+    component.paycheck = {
       biweeklyBase: 2000,
       employee: {
         firstName: "John",
@@ -52,8 +52,8 @@ describe('ItemizedFeesComponent', () => {
     expect(pageTitle.textContent).toEqual('Breakdown of Benefit Deductions for John Smith');
   });
 
-  it('displays employee fees', () => {
-    component.feeInfo = {
+  it('displays employee deductions', () => {
+    component.paycheck = {
       biweeklyBase: 2000,
       employee: {
         firstName: "John",
@@ -74,15 +74,15 @@ describe('ItemizedFeesComponent', () => {
     };
     fixture.detectChanges();
 
-    let employeeFeesTable = fixture.nativeElement.querySelector('#employeeFeesTable');
+    let employeeFeesTable = fixture.nativeElement.querySelector('#employeeDeductionsTable');
     expect(employeeFeesTable).toBeDefined();
   });
 
   describe('When an employee has dependents', () => {
 
-    it('displays a table with dependent fee info', () => {
+    it('displays a table with dependent deductions', () => {
 
-      component.feeInfo = {
+      component.paycheck = {
         biweeklyBase: 2000,
         employee: {
           firstName: "John",
@@ -121,7 +121,7 @@ describe('ItemizedFeesComponent', () => {
 
       fixture.detectChanges();
 
-      let dependentTable = fixture.nativeElement.querySelector('#dependentFeesTable');
+      let dependentTable = fixture.nativeElement.querySelector('#dependentDeductionsTable');
       expect(dependentTable).toBeDefined();
     });
 
@@ -129,8 +129,8 @@ describe('ItemizedFeesComponent', () => {
 
   describe('When an employee does not have dependents', () => {
 
-    it('displays a table with dependent fee info', () => {
-      component.feeInfo = {
+    it('displays a table with dependent deductions', () => {
+      component.paycheck = {
         biweeklyBase: 2000,
         employee: {
           firstName: "John",
@@ -158,8 +158,8 @@ describe('ItemizedFeesComponent', () => {
 
   });
 
-  it('displays total fees', () => {
-    component.feeInfo = {
+  it('displays total deductions', () => {
+    component.paycheck = {
       biweeklyBase: 2000,
       employee: {
         firstName: "John",
@@ -181,7 +181,7 @@ describe('ItemizedFeesComponent', () => {
 
     fixture.detectChanges();
 
-    let totalFeesTable = fixture.nativeElement.querySelector('#totalFeesTable');
+    let totalFeesTable = fixture.nativeElement.querySelector('#totalDeductionsTable');
     expect(totalFeesTable.textContent).toBeDefined();
   });
 });

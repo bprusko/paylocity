@@ -8,21 +8,21 @@ import { Paycheck } from '../ViewModels/Paycheck';
 })
 export class BenefitsWorksheetComponent implements OnInit {
 
-  feeInfo:Paycheck;
-  showItemizedFees:boolean;
+  paycheck:Paycheck;
+  showItemizedDeductions:boolean;
   submittedForm: any;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.showItemizedFees = false;
+    this.showItemizedDeductions = false;
   }
 
   formSubmittedHandler(value: [Paycheck, any]){
     // TODO: Error handling for getting fee info
     // Success
-    this.showItemizedFees = true;
-    this.feeInfo = value[0];
+    this.showItemizedDeductions = true;
+    this.paycheck = value[0];
     this.submittedForm = value[1];
 
     // Failure
@@ -32,11 +32,11 @@ export class BenefitsWorksheetComponent implements OnInit {
   }
 
   editWorksheet(){
-    this.showItemizedFees = false;
+    this.showItemizedDeductions = false;
   }
 
   resetWorksheet(){
-    this.showItemizedFees = false;
+    this.showItemizedDeductions = false;
     this.submittedForm = null;
   }
 

@@ -1,15 +1,15 @@
 <div>
 
-    <div *ngIf="feeInfo?.employee" class="row mb-5">
+    <div *ngIf="paycheck?.employee" class="row mb-5">
         <div class="col">
-            <h2>Breakdown of Benefit Deductions for {{feeInfo.employee.firstName}} {{feeInfo.employee.lastName}}</h2>
+            <h2>Breakdown of Benefit Deductions for {{paycheck.employee.firstName}} {{paycheck.employee.lastName}}</h2>
         </div>
     </div>
 
-    <section *ngIf="feeInfo?.employee" class="row" id="employeeFees">
+    <section *ngIf="paycheck?.employee" class="row" id="employeeDeductions">
         <div class="col">
             <h3>Employee</h3>
-            <table class="table table-striped" summary="Table showing breakdown of fees for the employee" id="employeeFeesTable">
+            <table class="table table-striped" summary="Table showing breakdown of fees for the employee" id="employeeDeductionsTable">
                 <thead>
                     <th>Gross Deduction</th>
                     <th>Total Discounts</th>
@@ -17,22 +17,22 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{feeInfo.employee.deductions.gross | currency}}</td>
-                        <td>{{feeInfo.employee.deductions.discount | currency}}</td>
-                        <td>{{feeInfo.employee.deductions.gross | currency}}</td>
+                        <td>{{paycheck.employee.deductions.gross | currency}}</td>
+                        <td>{{paycheck.employee.deductions.discount | currency}}</td>
+                        <td>{{paycheck.employee.deductions.gross | currency}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </section>
 
-    <section *ngIf="feeInfo?.dependents" class="row" id="dependentFees">
+    <section *ngIf="paycheck?.dependents" class="row" id="dependentDeductions">
         <div class="col">
             <h3>Dependents</h3>
 
-            <div *ngIf="feeInfo.dependents.length > 0">
+            <div *ngIf="paycheck.dependents.length > 0">
 
-                <table class="table table-striped" summary="Table showing breakdown of fees for each dependent" id="dependentFeesTable">
+                <table class="table table-striped" summary="Table showing breakdown of fees for each dependent" id="dependentDeductionsTable">
                     <thead>
                         <th>Name</th>
                         <th>Gross Deduction</th>
@@ -40,7 +40,7 @@
                         <th>Net Deduction</th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let dependent of feeInfo.dependents">
+                        <tr *ngFor="let dependent of paycheck.dependents">
                             <td>{{dependent.firstName}} {{dependent.lastName}}</td>
                             <td>{{dependent.deductions.gross | currency}}</td>
                             <td>{{dependent.deductions.discount | currency}}</td>
@@ -51,7 +51,7 @@
 
             </div>
 
-            <div *ngIf="feeInfo.dependents.length == 0" id="noDependentsMessage">
+            <div *ngIf="paycheck.dependents.length == 0" id="noDependentsMessage">
 
                 <p>Not Applicable</p>
 
@@ -60,11 +60,11 @@
         </div>
     </section>
 
-    <section *ngIf="feeInfo?.totalDeductions" class="row" id="feeTotals">
+    <section *ngIf="paycheck?.totalDeductions" class="row" id="totalDeductions">
         <div class="col">
             <h3>Totals</h3>
 
-            <table class="table table-striped" summary="Table showing total gross fees, total discounts, and total net fees" id="totalFeesTable">
+            <table class="table table-striped" summary="Table showing total gross fees, total discounts, and total net fees" id="totalDeductionsTable">
                 <thead>
                     <th>Base Pay</th>
                     <th>Gross Deductions</th>
@@ -74,11 +74,11 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{feeInfo.biweeklyBase | currency}}</td>
-                        <td>{{feeInfo.totalDeductions.gross | currency}}</td>
-                        <td>{{feeInfo.totalDeductions.discount | currency}}</td>
-                        <td>{{feeInfo.totalDeductions.net | currency}}</td>
-                        <td>{{feeInfo.netPay | currency}}</td>
+                        <td>{{paycheck.biweeklyBase | currency}}</td>
+                        <td>{{paycheck.totalDeductions.gross | currency}}</td>
+                        <td>{{paycheck.totalDeductions.discount | currency}}</td>
+                        <td>{{paycheck.totalDeductions.net | currency}}</td>
+                        <td>{{paycheck.netPay | currency}}</td>
                     </tr>
                 </tbody>
             </table>

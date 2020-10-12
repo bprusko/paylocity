@@ -5,13 +5,13 @@
         <h1 class="benefits-worksheet-title">Benefit Deductions Worksheet</h1>
     </div>
 
-    <div id="benefitsForm" *ngIf="!showItemizedFees">
+    <div id="benefitsForm" *ngIf="!showItemizedDeductions">
         <benefits-form [submittedForm]="submittedForm" (formSubmitted)="formSubmittedHandler($event)"></benefits-form>
     </div>
 
-    <div id="itemizedFees" *ngIf="showItemizedFees">
+    <div id="itemizedDeductions" *ngIf="showItemizedDeductions">
 
-        <itemized-fees [feeInfo]="feeInfo"></itemized-fees>
+        <itemized-deductions [paycheck]="paycheck"></itemized-deductions>
 
         <div class="form-row mt-5 mb-5">
             <button id="resetWorksheetButton" type="button" class="btn btn-primary mr-3"

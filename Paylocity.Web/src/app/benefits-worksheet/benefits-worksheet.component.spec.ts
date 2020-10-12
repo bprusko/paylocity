@@ -52,14 +52,14 @@ describe('BenefitsWorksheetComponent', () => {
     @Input() submittedForm: any;
   }
 
-  @Component({ selector: 'itemized-fees'})
-  class MockItemizedFeesComponent {
-    @Input() feeInfo: Paycheck;
+  @Component({ selector: 'itemized-deductions'})
+  class MockItemizedDeductionsComponent {
+    @Input() paycheck: Paycheck;
   }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BenefitsWorksheetComponent, MockBenefitsFormComponent, MockItemizedFeesComponent]
+      declarations: [BenefitsWorksheetComponent, MockBenefitsFormComponent, MockItemizedDeductionsComponent]
     })
       .compileComponents();
   });
@@ -96,8 +96,8 @@ describe('BenefitsWorksheetComponent', () => {
     it('shows the itemized fees', () => {
       component.formSubmittedHandler([paycheck, 'benefits form']);
       fixture.detectChanges();
-      expect(component.showItemizedFees).toBeTrue();
-      const element = fixture.nativeElement.querySelector('#itemizedFees');
+      expect(component.showItemizedDeductions).toBeTrue();
+      const element = fixture.nativeElement.querySelector('#itemizedDeductions');
       expect(element).not.toBeNull();
     });
 
@@ -117,7 +117,7 @@ describe('BenefitsWorksheetComponent', () => {
     it('updates the binding for benefits form', () => {
       component.formSubmittedHandler([paycheck, 'benefits form']);
       fixture.detectChanges();
-      expect(component.feeInfo).toEqual(paycheck);
+      expect(component.paycheck).toEqual(paycheck);
     });
 
     describe('Clicking the reset worksheet button', () => {
@@ -136,17 +136,17 @@ describe('BenefitsWorksheetComponent', () => {
       }));
 
       it('sets showItemizedFees to false', fakeAsync(() => {
-        expect(component.showItemizedFees).toBeTrue();
+        expect(component.showItemizedDeductions).toBeTrue();
 
         let button = fixture.debugElement.nativeElement.querySelector('#resetWorksheetButton');
         button.click();
         tick();
 
-        expect(component.showItemizedFees).toBeFalse();
+        expect(component.showItemizedDeductions).toBeFalse();
       }));
 
       it('displays the benefits form again', fakeAsync(() => {
-        expect(component.showItemizedFees).toBeTrue();
+        expect(component.showItemizedDeductions).toBeTrue();
 
         let button = fixture.debugElement.nativeElement.querySelector('#resetWorksheetButton');
         button.click();
@@ -159,7 +159,7 @@ describe('BenefitsWorksheetComponent', () => {
       }));
 
       it('hides the itemized fees again', fakeAsync(() => {
-        expect(component.showItemizedFees).toBeTrue();
+        expect(component.showItemizedDeductions).toBeTrue();
 
         let button = fixture.debugElement.nativeElement.querySelector('#resetWorksheetButton');
         button.click();
@@ -199,17 +199,17 @@ describe('BenefitsWorksheetComponent', () => {
       }));
 
       it('sets showItemizedFees to false', fakeAsync(() => {
-        expect(component.showItemizedFees).toBeTrue();
+        expect(component.showItemizedDeductions).toBeTrue();
 
         let button = fixture.debugElement.nativeElement.querySelector('#editWorksheetButton');
         button.click();
         tick();
 
-        expect(component.showItemizedFees).toBeFalse();
+        expect(component.showItemizedDeductions).toBeFalse();
       }));
 
       it('displays the benefits form again', fakeAsync(() => {
-        expect(component.showItemizedFees).toBeTrue();
+        expect(component.showItemizedDeductions).toBeTrue();
 
         let button = fixture.debugElement.nativeElement.querySelector('#resetWorksheetButton');
         button.click();
@@ -222,7 +222,7 @@ describe('BenefitsWorksheetComponent', () => {
       }));
 
       it('hides the itemized fees again', fakeAsync(() => {
-        expect(component.showItemizedFees).toBeTrue();
+        expect(component.showItemizedDeductions).toBeTrue();
 
         let button = fixture.debugElement.nativeElement.querySelector('#editWorksheetButton');
         button.click();

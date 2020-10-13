@@ -84,7 +84,7 @@ describe('BenefitsWorksheetComponent', () => {
     expect(element).toBeTruthy();
   });
 
-  describe('When the benefits form is submitted', () => {
+  describe('When submitting the benefits form succeeds', () => {
 
     it('calls formSubmittedHandler', () => {
       spyOn(component, 'formSubmittedHandler');
@@ -118,6 +118,14 @@ describe('BenefitsWorksheetComponent', () => {
       component.formSubmittedHandler([paycheck, 'benefits form']);
       fixture.detectChanges();
       expect(component.paycheck).toEqual(paycheck);
+    });
+
+    it('does not show an error message', () => {
+      component.formSubmittedHandler([paycheck, 'benefits form']);
+      fixture.detectChanges();
+      expect(component.showErrorMessage).toBeFalse();
+      const element = fixture.nativeElement.querySelector('#worksheetErrorMessage');
+      expect(element).toBeNull();
     });
 
     describe('Clicking the reset worksheet button', () => {
@@ -236,6 +244,26 @@ describe('BenefitsWorksheetComponent', () => {
 
     });
 
+  });
+
+  describe('When submitting the benefits form fails', () => {
+    it('shows an error message', () => {
+      component.formSubmittedHandler([null, 'benefits form']);
+      fixture.detectChanges();
+      const element = fixture.nativeElement.querySelector('#worksheetErrorMessage');
+      expect(component.showErrorMessage).toBeTrue();
+      expect(element).not.toBeNull();
+      expect(element.textContent).toContain('Sorry, there was an error calculating the deductions. If this continues, please contact support.');
+
+    });
+
+    it('does not show the itemized fees', () => {
+      component.formSubmittedHandler([null, 'benefits form']);
+      fixture.detectChanges();
+      expect(component.showItemizedDeductions).toBeFalse();
+      const element = fixture.nativeElement.querySelector('#itemizedDeductions');
+      expect(element).toBeNull();
+    });
   });
 
 });

@@ -5,6 +5,10 @@
         <h1 class="benefits-worksheet-title">Benefit Deductions Worksheet</h1>
     </div>
 
+    <div *ngIf="showErrorMessage" id="worksheetErrorMessage" class="alert alert-danger" role="alert">
+        Sorry, there was an error calculating the deductions. If this continues, please contact support.
+    </div>
+
     <div id="benefitsForm" *ngIf="!showItemizedDeductions">
         <benefits-form [submittedForm]="submittedForm" (formSubmitted)="formSubmittedHandler($event)"></benefits-form>
     </div>

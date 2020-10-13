@@ -16,7 +16,7 @@ namespace Paylocity.Api.Tests
         }
 
         [TestMethod]
-        public void CalculateDeductions_CalculatesEmployeeFees()
+        public void CalculateDeductions_CalculatesEmployeeDeductions()
         {
             var employee = new Employee{ FirstName = "Dwayne", LastName = "Johnson"};
             var deductions = _calculationService.CalculateDeductions(employee);
@@ -26,7 +26,7 @@ namespace Paylocity.Api.Tests
         }
 
         [TestMethod]
-        public void CalculateDeductions_CalculatesDependentFees()
+        public void CalculateDeductions_CalculatesDependentDeductions()
         {
             var depdendent = new Dependent{ FirstName = "Mick", LastName = "Foley"};
             var deductions = _calculationService.CalculateDeductions(depdendent);

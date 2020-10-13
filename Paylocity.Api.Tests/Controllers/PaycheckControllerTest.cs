@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Paylocity.Api.Models;
 using Paylocity.Api.Services.Interfaces;
@@ -25,15 +26,19 @@ namespace Paylocity.Api.Tests
         }
 
         [TestMethod]
-        public void CalculateFees_ReturnsFeeInfo()
+        public void CalculateFees_ReturnsPaycheck()
         {
             _paycheckService.Setup(s => s.GetPaycheck(It.IsAny<PaycheckRequest>()))
                 .Returns(TestData.Paycheck);
 
             var result = _paycheckController.GetDeductions(TestData.PaycheckRequestWithDependents);
+            var okResult = result as OkObjectResult;
 
+            _paycheckService.Verify(c => c.GetPaycheck(TestData.PaycheckRequestWithDependents),
+                Times.Once);
             Assert.AreEqual(JsonConvert.SerializeObject(TestData.Paycheck),
-                JsonConvert.SerializeObject(result));
+                JsonConvert.SerializeObject(okResult.Value));
+            Assert.AreEqual(200, okResult.StatusCode);
         }
     }
 }

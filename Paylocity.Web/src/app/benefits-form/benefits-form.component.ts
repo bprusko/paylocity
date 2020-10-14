@@ -69,7 +69,7 @@ export class BenefitsFormComponent implements OnInit {
     this.totalDependents--;
   }
 
-  calculateFees() {
+  calculateDeductions() {
     this.paycheckService.getPaycheck(this.benefitsForm.value).subscribe(response => {
       this.formSubmitted.emit([response as Paycheck, this.benefitsForm]);
     });

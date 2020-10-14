@@ -1,6 +1,6 @@
-# Paylocity Coding Exercise
+# Paylocity Coding Exercise (October 2020)
 
-This is a small web app that calculates an employer's cost for an employee's annual benefits. Calculations are based on fictitious rules, and per the exercise instructions, the implementation is designed to be functional rather than production ready.
+This is a small web app that calculates an employer's cost for an employee's benefits per paycheck. Calculations are based on fictitious rules, and per the exercise instructions, the implementation is designed to be functional rather than production ready.
 
 ## Front End (<span>Paylocity.Web</span>)
 

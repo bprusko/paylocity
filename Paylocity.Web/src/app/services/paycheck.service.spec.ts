@@ -53,7 +53,7 @@ describe('PaycheckService', () => {
         expect(result).toEqual(paycheck);
       });
 
-      const req = httpMock.expectOne('http://localhost:5000/api/v1/paycheck/deductions');
+      const req = httpMock.expectOne('https://localhost:5001/api/v1/paycheck/deductions');
       expect(req.request.method).toBe("POST");
       req.flush(paycheck);
     });
@@ -63,7 +63,7 @@ describe('PaycheckService', () => {
         expect(result).toBeNull();
       });
 
-      const req = httpMock.expectOne('http://localhost:5000/api/v1/paycheck/deductions');
+      const req = httpMock.expectOne('https://localhost:5001/api/v1/paycheck/deductions');
       expect(req.request.method).toBe("POST");
       req.flush('404 error', { status: 404, statusText: 'Paycheck Service Test: Not Found'});
     });

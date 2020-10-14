@@ -15,4 +15,4 @@ The app will be available at `http://localhost:4200/`.
 
 ## Back End (Paylocity.Api)
 
-I wrote this in .NET Core 3.1. To start the API, run the following command from the root directory: `dotnet run --project Paylocity.Api`. The API will be available at `http://localhost:5000`.
+I wrote this in .NET Core 3.1. To start the API, run the following command from the root directory: `dotnet run --project Paylocity.Api`. The API will be available at `http://localhost:5000` and `https://localhost:5001`.

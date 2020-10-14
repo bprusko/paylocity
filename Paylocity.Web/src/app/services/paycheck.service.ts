@@ -13,7 +13,7 @@ export class PaycheckService {
 
   getPaycheck(formValue: any): Observable<Paycheck> {
 
-    return this.http.post("http://localhost:5000/api/v1/paycheck/deductions", formValue)
+    return this.http.post("https://localhost:5001/api/v1/paycheck/deductions", formValue)
       .pipe(
         catchError(err => {
           console.log('[PAYCHECK SERVICE][ERROR][GET PAYCHECK]');

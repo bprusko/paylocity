@@ -29,7 +29,7 @@ namespace Paylocity.Api.Tests
             _calculationService.Setup(s => s.CalculateDeductions(It.IsAny<Dependent>()))
                 .Returns(TestData.DependentDeductions);
 
-            var fees = _paycheckService.GetPaycheck(TestData.PaycheckRequestWithDependents);
+            var fees = _paycheckService.GetPaycheckWithDeductions(TestData.PaycheckRequestWithDependents);
 
             _calculationService.Verify(c => c.CalculateDeductions(It.IsAny<Employee>()), Times.Once);
 
@@ -43,7 +43,7 @@ namespace Paylocity.Api.Tests
             _calculationService.Setup(s => s.CalculateDeductions(It.IsAny<Employee>()))
                 .Returns(TestData.EmployeeDeductions);
 
-            var fees = _paycheckService.GetPaycheck(TestData.PaycheckRequest);
+            var fees = _paycheckService.GetPaycheckWithDeductions(TestData.PaycheckRequest);
 
             _calculationService.Verify(c => c.CalculateDeductions(It.IsAny<Employee>()), Times.Once);
 
@@ -60,7 +60,7 @@ namespace Paylocity.Api.Tests
             _calculationService.Setup(s => s.CalculateDeductions(It.IsAny<Dependent>()))
                 .Returns(TestData.DependentDeductions);
 
-            var fees = _paycheckService.GetPaycheck(TestData.PaycheckRequest);
+            var fees = _paycheckService.GetPaycheckWithDeductions(TestData.PaycheckRequest);
 
             Assert.AreEqual(TestData.EmployeeDeductions.Discount, fees.Employee.Deductions.Discount);
             Assert.AreEqual(TestData.EmployeeDeductions.Gross, fees.Employee.Deductions.Gross);
@@ -76,7 +76,7 @@ namespace Paylocity.Api.Tests
             _calculationService.Setup(s => s.CalculateDeductions(It.IsAny<Dependent>()))
                 .Returns(TestData.DependentDeductions);
 
-            var fees = _paycheckService.GetPaycheck(TestData.PaycheckRequestWithDependents);
+            var fees = _paycheckService.GetPaycheckWithDeductions(TestData.PaycheckRequestWithDependents);
 
             Assert.AreEqual(TestData.DependentDeductions.Discount, fees.Dependents[0].Deductions.Discount);
             Assert.AreEqual(TestData.DependentDeductions.Gross, fees.Dependents[0].Deductions.Gross);
@@ -92,7 +92,7 @@ namespace Paylocity.Api.Tests
             _calculationService.Setup(s => s.CalculateDeductions(It.IsAny<Dependent>()))
                 .Returns(TestData.DependentDeductions);
 
-            var fees = _paycheckService.GetPaycheck(TestData.PaycheckRequestWithDependents);
+            var fees = _paycheckService.GetPaycheckWithDeductions(TestData.PaycheckRequestWithDependents);
 
             Assert.AreEqual(0, fees.TotalDeductions.Discount);
             Assert.AreEqual(76.92, fees.TotalDeductions.Gross);

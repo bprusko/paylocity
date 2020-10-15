@@ -26,15 +26,15 @@ namespace Paylocity.Api.Tests
         }
 
         [TestMethod]
-        public void CalculateFees_ReturnsPaycheck()
+        public void CalculateDeductions_ReturnsPaycheckWithDeductions()
         {
-            _paycheckService.Setup(s => s.GetPaycheck(It.IsAny<PaycheckRequest>()))
+            _paycheckService.Setup(s => s.GetPaycheckWithDeductions(It.IsAny<DeductionsRequest>()))
                 .Returns(TestData.Paycheck);
 
             var result = _paycheckController.GetDeductions(TestData.PaycheckRequestWithDependents);
             var okResult = result as OkObjectResult;
 
-            _paycheckService.Verify(c => c.GetPaycheck(TestData.PaycheckRequestWithDependents),
+            _paycheckService.Verify(c => c.GetPaycheckWithDeductions(TestData.PaycheckRequestWithDependents),
                 Times.Once);
             Assert.AreEqual(JsonConvert.SerializeObject(TestData.Paycheck),
                 JsonConvert.SerializeObject(okResult.Value));

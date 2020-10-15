@@ -59,7 +59,7 @@ namespace Paylocity.Api.Tests
             LastName = "Levinson"
         };
 
-        public static readonly PaycheckRequest PaycheckRequestWithDependents = new PaycheckRequest
+        public static readonly DeductionsRequest PaycheckRequestWithDependents = new DeductionsRequest
         {
             Employee = new Employee
             {
@@ -78,7 +78,7 @@ namespace Paylocity.Api.Tests
             }
         };
 
-        public static readonly PaycheckRequest PaycheckRequest = new PaycheckRequest
+        public static readonly DeductionsRequest PaycheckRequest = new DeductionsRequest
         {
             Employee = new Employee
             {

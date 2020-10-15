@@ -22,10 +22,10 @@ namespace Paylocity.Api.Controllers
 
         [HttpPost]
         [Route("deductions")]
-        public IActionResult GetDeductions([FromBody] PaycheckRequest feeRequest)
+        public IActionResult GetDeductions([FromBody] DeductionsRequest deductionsRequest)
         {
             try {
-                var paycheck = _paycheckService.GetPaycheck(feeRequest);
+                var paycheck = _paycheckService.GetPaycheckWithDeductions(deductionsRequest);
                 _logger.LogInformation("[PAYCHECK CONTROLLER][GET DEDUCTIONS][SUCCESS]");
                 return new OkObjectResult(paycheck);
             }

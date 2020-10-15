@@ -6,6 +6,7 @@ using DependentModel = Paylocity.Api.Models.Dependent;
 using EmployeeVM = Paylocity.Api.ViewModels.Employee;
 using DependentVM = Paylocity.Api.ViewModels.Dependent;
 
+
 namespace Paylocity.Api.Services
 {
     public class PaycheckService : IPaycheckService
@@ -17,13 +18,13 @@ namespace Paylocity.Api.Services
             _calculationService = calculationService;
         }
 
-        public Paycheck GetPaycheck(PaycheckRequest request)
+        public Paycheck GetPaycheckWithDeductions(DeductionsRequest request)
         {
-            var feeInfo = BuildPaycheck(request);
-            return feeInfo;
+            var paycheck = BuildPaycheck(request);
+            return paycheck;
         }
 
-        private Paycheck BuildPaycheck(PaycheckRequest request)
+        private Paycheck BuildPaycheck(DeductionsRequest request)
         {
             var paycheck = new Paycheck();
             paycheck.Employee = BuildEmployeeInfo(request);
@@ -31,19 +32,19 @@ namespace Paylocity.Api.Services
             return paycheck;
         }
 
-        private EmployeeVM BuildEmployeeInfo(PaycheckRequest request)
+        private EmployeeVM BuildEmployeeInfo(DeductionsRequest request)
         {
             if (request?.Employee != null)
             {
-                var employeeFees = _calculationService.CalculateDeductions(request.Employee);
+                var employeeDeductions = _calculationService.CalculateDeductions(request.Employee);
                 var employeeVM = new EmployeeVM
                 {
                     FirstName = request.Employee.FirstName,
                     LastName = request.Employee.LastName,
                     Deductions = new ViewModels.Deduction
                     {
-                        Discount = employeeFees.Discount,
-                        Gross = employeeFees.Gross
+                        Discount = employeeDeductions.Discount,
+                        Gross = employeeDeductions.Gross
                     }
                 };
                 return employeeVM;
@@ -52,7 +53,7 @@ namespace Paylocity.Api.Services
             return new EmployeeVM();
         }
 
-        private List<DependentVM> BuildDependentsInfo(PaycheckRequest request)
+        private List<DependentVM> BuildDependentsInfo(DeductionsRequest request)
         {
             var dependentsVM = new List<DependentVM>();
 
@@ -69,15 +70,15 @@ namespace Paylocity.Api.Services
 
         private DependentVM BuildDependentInfo(DependentModel depdendent)
         {
-            var depdendentFees = _calculationService.CalculateDeductions(depdendent);
+            var depdendentDeductions = _calculationService.CalculateDeductions(depdendent);
             var depdendentVM = new DependentVM
             {
                 FirstName = depdendent.FirstName,
                 LastName = depdendent.LastName,
                 Deductions = new ViewModels.Deduction
                 {
-                    Discount = depdendentFees.Discount,
-                    Gross = depdendentFees.Gross
+                    Discount = depdendentDeductions.Discount,
+                    Gross = depdendentDeductions.Gross
                 }
             };
             return depdendentVM;

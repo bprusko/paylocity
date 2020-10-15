@@ -5,7 +5,7 @@ namespace Paylocity.Api.Services.Interfaces {
 
     public interface IPaycheckService {
 
-        Paycheck GetPaycheck(PaycheckRequest request);
+        Paycheck GetPaycheckWithDeductions(DeductionsRequest request);
 
     }
 
